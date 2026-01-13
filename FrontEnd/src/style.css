@@ -1,0 +1,624 @@
+/* =========================
+   1. VARIABLES & THEME
+========================= */
+:root {
+  /* Colors */
+  --primary: #4f46e5;       /* Indigo 600 */
+  --primary-hover: #4338ca; /* Indigo 700 */
+  --bg-main: #f8fafc;       /* Slate 50 */
+  --surface: #ffffff;       /* White */
+  --text-main: #0f172a;     /* Slate 900 */
+  --text-muted: #64748b;    /* Slate 500 */
+  --border: #e2e8f0;        /* Slate 200 */
+  --danger: #ef4444;        /* Red 500 */
+  --danger-bg: #fef2f2;     /* Red 50 */
+
+  /* Spacing & Shape */
+  --radius: 12px;
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+   2. RESET & GLOBAL
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================
+   3. LAYOUT CONTAINERS
+========================= */
+/* Centered Forms (Login, Signup, Add Student) */
+.form-container, 
+.form-incontainer {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+/* Dashboard Wrapper */
+.dashboard, 
+.admin-dashboard {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* =========================
+   4. FORM STYLING
+========================= */
+.form-box {
+  background: var(--surface);
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.form-title {
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 24px;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+input, 
+select {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fcfcfc;
+  transition: all 0.2s ease;
+}
+
+input:focus, 
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+/* =========================
+   5. BUTTONS & ACTIONS (UX OPTIMIZED)
+========================= */
+/* Base Button Style */
+.btn-submit, 
+.dashboard-btn, 
+.back-btn {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 1. Primary Action (Login, Signup, Add, Upload) */
+.btn-submit, 
+.dashboard-btn:not(.logout-btn) {
+  background-color: var(--primary);
+  color: white;
+  margin-bottom: 12px; /* Spacing between buttons */
+}
+
+.btn-submit:hover, 
+.dashboard-btn:not(.logout-btn):hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+/* 2. Secondary/Cancel Action (Gray background) */
+.back-btn {
+  background-color: #f1f5f9;
+  color: var(--text-muted);
+}
+
+.back-btn:hover {
+  background-color: #e2e8f0;
+  color: var(--text-main);
+}
+
+/* 3. Ghost/Logout Action (Outline, turns red) */
+.logout-btn {
+  width: auto; /* Allow it to shrink in header */
+  background: transparent !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-muted) !important;
+}
+
+.logout-btn:hover {
+  background: var(--danger-bg) !important;
+  color: var(--danger) !important;
+  border-color: #fecaca !important;
+}
+
+/* Link Text (Sign up link) */
+.auth-link {
+  text-align: center;
+  font-size: 14px;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   6. DASHBOARD & LISTS
+========================= */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.list-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+/* Student List Items (Teacher View) */
+.student-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Name | Email | Class */
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.student-card:last-child {
+  border-bottom: none;
+}
+
+.student-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.student-card strong {
+  color: var(--text-main);
+}
+
+/* Search Input */
+.student-search {
+  margin-bottom: 24px;
+  border-radius: 50px; /* Pill shape for search */
+  padding-left: 20px;
+}
+
+/* =========================
+   7. STUDENT PROFILE DASHBOARD
+========================= */
+.student-profile {
+  max-width: 500px !important;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.profile-image-wrapper {
+  margin-bottom: 24px;
+  position: relative;
+  display: inline-block;
+}
+
+.student-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.student-image:hover {
+  transform: scale(1.02);
+  filter: brightness(0.9);
+}
+
+.change-photo {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 8px;
+}
+
+/* Profile Details Table-look */
+.student-info {
+  text-align: left;
+  margin-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.student-info p {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.student-info strong {
+  color: var(--text-main);
+}
+
+.student-info p:last-child {
+  border-bottom: none;
+}
+
+/* Upload Area styling */
+.upload-area {
+  margin-top: 24px;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.small-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  width: auto;
+  margin-bottom: 0;
+}
+
+/* =========================
+   8. ADMIN TABLE
+========================= */
+.admin-dashboard table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  margin-top: 24px;
+}
+
+.admin-dashboard th {
+  background: #f1f5f9;
+  padding: 16px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-dashboard td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.admin-dashboard tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================
+   9. UTILITIES (Errors & Pagination)
+========================= */
+.error-text {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--danger);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.pagination button {
+  width: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px 16px;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================
+   10. RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .student-card {
+    grid-template-columns: 1fr; /* Stack student info on mobile */
+    gap: 6px;
+    text-align: left;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .dashboard-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .admin-dashboard table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+/* =========================
+   HOME PAGE SPECIFIC
+========================= */
+.home-box {
+  text-align: center;
+  max-width: 450px; /* Slightly wider for the home page */
+}
+
+/* Brand Logo (Emoji or SVG container) */
+.brand-logo {
+  font-size: 48px;
+  margin-bottom: 16px;
+  background: #eff6ff;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Better Subtitle Typography */
+.home-subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* Button Grouping */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* SECONDARY BUTTON (Outline Style) */
+/* This makes the Signup button look different from Login */
+.btn-outline {
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  /* Outline specific styles */
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background: #eef2ff; /* Very light blue background on hover */
+  transform: translateY(-1px);
+}
+/* =========================
+   PASSWORD SHOW/HIDE
+========================= */
+
+/* The wrapper holds the input and the button */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px; /* Moves the bottom spacing to the wrapper */
+}
+
+/* Remove bottom margin from the input itself so it fits in the wrapper */
+.password-wrapper input {
+  margin-bottom: 0;
+  padding-right: 40px; /* Make space for the icon so text doesn't overlap */
+}
+
+/* The Toggle Button (Eye) */
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted); /* Uses your existing grey variable */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.toggle-password-btn:hover {
+  color: var(--primary); /* Turns blue on hover */
+}
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 60px; /* space for the show/hide button */
+}
+
+.toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  font-size: 14px;
+}
+/* NOTIFICATION STYLE */
+/* Notification container */
+.notification {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+/* Success notification */
+.notification.success {
+  color: green;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+}
+
+/* Error notification */
+.notification.error {
+  color: red;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+.notification {
+  transition: all 0.3s ease;
+}
+/* =========================
+   ADMIN DELETE CONTROLS
+========================= */
+
+/* Wrapper for time inputs + delete button */
+.admin-delete-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0 24px;
+  flex-wrap: wrap;
+}
+
+/* Time input group */
+.admin-delete-time {
+  display: flex;
+  gap: 8px;
+}
+
+/* Smaller time inputs */
+.admin-delete-time input {
+  width: 90px;
+  padding: 8px 10px;
+  font-size: 13px;
+  margin-bottom: 0;
+  border-radius: 6px;
+}
+
+/* Small delete button */
+.admin-delete-btn {
+  width: auto !important;
+  padding: 8px 16px !important;
+  font-size: 13px !important;
+}
+
+/* Disable state clarity */
+.admin-delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.time-inputs {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.time-box {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+}
+
+.time-box label {
+  font-size: 12px;
+  margin-bottom: 3px;
+  color: #555;
+}
+
+.time-box input {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
