@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../style.css";
-
+import { useNavigate } from "react-router-dom";
+// import "./addStudent"
 function StudentList() {
   const [students, setStudents] = useState([]);
   const [error, setError] = useState("");
@@ -12,6 +13,7 @@ function StudentList() {
 
   const studentsPerPage = 5;
 
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchStudents = async () => {
       try {
@@ -67,6 +69,9 @@ function StudentList() {
             <p>
               <strong>Class:</strong> {s.class}
             </p>
+            <button className="dashboard-btn update-btn" onClick={() => navigate(`/update/${s._id}`)}>
+              Update
+              </button>
           </div>
         ))}
 

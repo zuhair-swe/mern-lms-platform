@@ -5,6 +5,7 @@ import { lazy, Suspense } from "react";
 import Home from "./home";
 import Signup from "./signup";
 import Login from "./login";
+import UpdateStudent from "./update";
 
 // lazy imports (heavy / protected pages)
 const Dashboard = lazy(() => import("./dashboard"));
@@ -35,6 +36,7 @@ const MyRoutes = () => {
           <Route path="/students" element={<StudentList />} />
           <Route path="/student-dashboard" element={<StudentDashboard />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/update/:studentId" element={<UpdateStudent/>}/>
         </Route>
 
       </Routes>

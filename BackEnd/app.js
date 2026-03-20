@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path")
+const path = require("path");
 require("dotenv").config();
 require("./utils/delete");
 // Cron jobs run inside the server, not through HTTP.

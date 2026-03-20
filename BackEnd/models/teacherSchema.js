@@ -17,7 +17,11 @@ const teacherSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ["Teacher","Admin"], default: "Teacher"
-  }
+  },
+  approve: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 module.exports = mongoose.model("Teacher", teacherSchema);

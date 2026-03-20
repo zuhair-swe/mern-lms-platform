@@ -622,3 +622,118 @@ select:focus {
   border-radius: 4px;
   border: 1px solid #ccc;
 }
+/* =========================
+   STUDENT CARD UPDATE BUTTON INLINE
+========================= */
+
+/* Make student card a grid with 4 columns: Name | Email | Class | Update Button */
+.student-card {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr 1fr; /* Adjust column widths as needed */
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.student-card:last-child {
+  border-bottom: none;
+}
+
+/* Update button smaller and inline with the row */
+.student-card .update-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  background-color: var(--primary);
+  color: white;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.student-card .update-btn:hover {
+  background-color: var(--primary-hover);
+}
+/* =========================
+   UPDATE STUDENT FORM BUTTONS & RESPONSIVE LAYOUT
+========================= */
+
+/* Form container */
+.update-form {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px 40px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Labels and inputs already covered, keep focus and disabled styles from before */
+
+/* Buttons container */
+.update-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap; /* ensures buttons don't overflow on small screens */
+  margin-top: 10px;
+}
+
+/* Update button (primary) */
+.update-form .dashboard-btn {
+  width: auto; /* shrink to content */
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.update-form .dashboard-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+/* Cancel button (secondary) */
+.update-form .back-btn {
+  width: auto;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  color: var(--text-muted);
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.update-form .back-btn:hover {
+  background-color: #e2e8f0;
+  color: var(--text-main);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .update-form {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  .update-form .form-actions {
+    justify-content: center; /* center buttons on small screens */
+    gap: 10px;
+  }
+
+  .update-form .dashboard-btn,
+  .update-form .back-btn {
+    width: 48%; /* buttons take half the width on mobile */
+  }
+}
+

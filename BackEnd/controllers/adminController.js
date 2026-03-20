@@ -2,6 +2,7 @@ const Teacher = require("../models/teacherSchema");
 const Student = require("../models/studentSchema")
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const sendEmail = require("../utils/sendMail");
 
 exports.createAdmin = async (req, res) => {
   try {
@@ -109,5 +110,45 @@ exports.cronDeleteStudents = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({ message: "Cron delete failed" });
+  }
+};
+exports.approveTeacher = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const teacher = await Teacher.findOne({ email });
+
+    if (!teacher) {
+      return res.status(404).json({ message: "Teacher not found" });
+    }
+
+    if (teacher.approve === true) {
+      return res.status(200).json({ message: "Teacher already approved" });
+    }
+
+    await Teacher.updateOne(
+      { email: email },        //  filter
+      { $set: { approve: true } } //  update
+    );
+
+    await sendEmail(
+      email,
+      "Welcome to LMS Portal",
+      `Hello ${teacher.name},
+
+You have been successfully Approved as a Teacher.
+
+LOGIN with given email.
+Email: ${email},
+
+Regards,
+Learning Management System 
+    (ZUHAIR HUSSAIN)`
+    );
+    return res.status(200).json({ message: "Teacher approved successfully" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Approved failed" });
   }
 };

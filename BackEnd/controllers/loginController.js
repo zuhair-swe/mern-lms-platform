@@ -20,6 +20,10 @@ exports.login = async (req, res) => {
       if (!user || user.role !== "Teacher") {
         return res.status(404).json({ message: "Teacher not found" });
       }
+      
+      if(user.approve===false){
+        return res.status(404).json({message:"Not approved!"})
+      }
     }
 
     // ========= ADMIN LOGIN =========
